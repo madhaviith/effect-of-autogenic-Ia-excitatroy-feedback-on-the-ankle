@@ -1,0 +1,258 @@
+
+// Procedure to update extracellular medium parameters
+
+proc lfp_setup() {
+forall if (!issection(".*dummy.*")){
+        if (!issection(".*myelin.*")){
+        if (!issection(".*para.*")){
+        if (!issection(".*branch.*")){
+        insert extracellular
+        insert lfp
+
+	local_xc_0 = xc[0]
+        local_xc_1 = xc[1]
+
+        local_xg_0 = xg[0] 
+        local_xg_1 = xg[1] 
+
+
+        local_xraxial_0  = xraxial[0]
+        local_xraxial_1  = xraxial[1] 
+
+
+      //  print "LFPxc0 ", xc[0] 
+      //  print "LFPxc1 " , xc[1]
+
+        
+      //  print "LFPxg0 ", xg[0] 
+      //  print "LFPxg 1 " , xg[1]
+
+      //  print "LFPxar0 ", xraxial[0]
+      //  print "LFPxar1 " , xraxial[0]
+
+
+
+        }
+        }
+        }
+}
+}
+
+
+proc setelec() {
+        elec_x = $1
+        elec_y = $2
+        elec_z = $3
+
+        re_insert_elec() // re-define pointers
+}
+
+proc change_local_xc_0(){
+
+	forall{
+		xc[0]=$1	
+	}	
+}
+
+
+proc change_local_xc_1(){
+
+	forall{
+		xc[1]=$1	
+	}	
+}
+
+
+proc change_local_xg_0(){
+
+	forall{
+		xg[0]=$1	
+	}	
+}
+
+
+
+proc change_local_xg_1(){
+
+	forall{
+		xg[1]=$1	
+	}	
+}
+
+
+proc change_local_xraxial_0(){
+
+	forall{
+		xraxial[0]=$1	
+	}	
+}
+
+proc change_local_xraxial_1(){
+
+	forall{
+		xraxial[1]=$1	
+	}	
+}
+
+
+// Procedure for computing LFP via three schema, Point Source Approximation(PSA), Line Source Approximation (LSA), RC filter methods. 
+
+
+proc re_insert_elec(){
+
+	forall {    
+
+	    if (ismembrane("lfp")) {	
+                //print secname()
+		x = (x3d(0) + x3d(1)) / 2 
+		y = (y3d(0) + y3d(1)) / 2 
+		z = (z3d(0) + z3d(1)) / 2 
+	
+		sigma = 0.3
+
+		if(elec_x==elec_y==elec_z==0){
+			elec_z=1
+		}
+
+		dis = sqrt( ((elec_x - x)*(elec_x - x)) + ((elec_y - y)*(elec_y - y)) + ((elec_z - z)*(elec_z - z)))
+
+		if(dis<(diam/2)){ // setting radius limit
+					dis = (diam/2) + 0.1
+
+		}
+		point_part1 = (1 / (4 * 3.141 * dis * sigma)) * area(0.5)
+
+
+		//calculate length of the compartment
+		dist_comp = sqrt( ((x3d(1) - x3d(0))*(x3d(1) - x3d(0))) + ((y3d(1) - y3d(0))*(y3d(1) - y3d(0))) + ((z3d(1) - z3d(0))*(z3d(1) - z3d(0))))
+
+		dist_comp_x = (x3d(1) - x3d(0)) //* 1e-6
+		dist_comp_y = (y3d(1) - y3d(0)) //* 1e-6
+		dist_comp_z = (z3d(1) - z3d(0)) //* 1e-6
+
+		sum_dist_comp = sqrt((dist_comp_x*dist_comp_x) + (dist_comp_y*dist_comp_y) + (dist_comp_z*dist_comp_z))
+
+		//print "sum_dist_comp=",sum_dist_comp, secname(), area(0.5)
+
+		if(sum_dist_comp<(diam/2)){ // setting radius limit
+					sum_dist_comp = (diam/2) + 0.1
+
+		}
+
+		long_dist_x = (elec_x- x3d(1))
+		long_dist_y = (elec_y- y3d(1))
+		long_dist_z = (elec_z- z3d(1))
+
+		sum_HH = (long_dist_x * dist_comp_x) + (long_dist_y * dist_comp_y) + (long_dist_z * dist_comp_z)
+				
+		final_sum_HH = sum_HH / sum_dist_comp
+
+		sum_temp1 = (long_dist_x * long_dist_x) + (long_dist_y * long_dist_y) + (long_dist_z * long_dist_z)
+		r_sq = sum_temp1 -(final_sum_HH * final_sum_HH)
+			
+		Length_vector = final_sum_HH + sum_dist_comp
+							
+
+
+		if ((final_sum_HH<0)&&(Length_vector<=0)){
+
+
+			phi=log((sqrt((final_sum_HH*final_sum_HH) + r_sq) - final_sum_HH)/(sqrt((Length_vector*Length_vector)+r_sq)-Length_vector))
+
+
+		}else if((final_sum_HH>0)&&(Length_vector>0)){
+
+			
+			phi=log((sqrt((Length_vector*Length_vector)+r_sq) + Length_vector)/(sqrt((final_sum_HH*final_sum_HH)+r_sq) + final_sum_HH))
+			
+		}else{
+
+			phi=log(((sqrt((Length_vector*Length_vector)+r_sq)+Length_vector) * (sqrt((final_sum_HH*final_sum_HH)+r_sq)-final_sum_HH))/r_sq)
+						
+		}
+
+
+		line_part1 = 1/(4*PI*sum_dist_comp*sigma) * phi * area(0.5)
+
+
+		// RC algorithm implementation
+		capa = 1 // set to specific capacitance, Johnston and Wu 1995
+		RC = sigma * capa
+	
+		time_const = dis / 240 // velo um/ms  // Nauhaus et al, 2009 calculated the propagation speed on average, 0.24 ± 0.20 m/s in monkeys and 0.31 ± 0.23 m/s in cats (mean ± s.d.) ie, 240 um/ms
+		rc_part1 =  exp(-1 *(time_const/RC))
+
+		for (x, 0) {
+		
+			setpointer transmembrane_current_lfp(x), i_membrane(x)
+
+		        initial_part_point_lfp(x) = point_part1 * area(x)
+
+			initial_part_line_lfp(x) =  line_part1 * area(x)
+
+		        initial_part_rc_lfp(x) = rc_part1 * area(x)
+						
+				
+		}
+
+
+
+	    }
+	}
+
+}
+
+// function to sum field potential calculated for PSA schema
+func fieldrec_point() { local sum
+	sum = 0
+	forall {
+	  if (ismembrane("lfp")) {
+		for (x,0) sum += lfp_point_lfp(x)
+	  }
+	}
+	return sum
+}
+
+// function to sum field potential calculated for LSA schema
+func fieldrec_line() { local sum
+	sum = 0
+	forall {
+	  if (ismembrane("lfp")) {
+		for (x,0) sum += lfp_line_lfp(x)
+	  }
+	}
+	return sum
+}
+
+
+// function to sum field potential calculated for RC filter schema
+func fieldrec_RC() { local sum
+	sum = 0
+	forall {
+	  if (ismembrane("lfp")) {
+		for (x,0) sum += lfp_rc_lfp(x)
+	  }
+	}
+	return sum
+}
+
+ 
+ 
+ // Initializing all variables
+proc init_lfp() { 
+	Point_source = fieldrec_point()
+	Line_source = fieldrec_line()
+	Simple_RC_filter = fieldrec_RC()
+}
+
+proc advance_lfp() {
+	Point_source = fieldrec_point()
+	Line_source = fieldrec_line()
+	Simple_RC_filter = fieldrec_RC()
+}
+
+   
+
+
+
+       

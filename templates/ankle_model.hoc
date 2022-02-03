@@ -1,0 +1,269 @@
+
+begintemplate ankle_model
+public dummy_soma, nclist
+public ankle_init, ankle_advance, calc_currents, moment
+public TAv, TAf, GAv, GAf, TAl,TAl_prev, GAl,GAl_prev, theta_deg, moment_force, TAp, TApII, GAp,GApII, DRG_TA_i, DRG_GA_i
+
+
+create dummy_soma
+objectvar nclist
+
+objref mTwitchVec, tagaLenVec
+objref taSpikeVec,taForceVec,gaSpikeVec,gaForceVec
+
+proc init() {localobj f
+
+
+nclist = new List()
+min_ta_len = 0.54
+max_ta_len = 0.63
+min_ga_len = 0.55
+max_ga_len = 0.65
+default_oq_len = (min_ta_len+max_ta_len)/2
+default_or_len = (min_ga_len+max_ga_len)/2
+min_pps = 5
+max_pps = 40
+default_pps = (max_pps+min_pps)/2
+
+  //dummy_soma{L=20 diam=20 nseg=1 Ra=124 insert hh gnabar_hh=0.9 gkbar_hh=0.1 insert pas insert rigid}
+  dummy_soma{nseg=1 insert rigid}
+
+  mTwitchVec = new Vector()
+  f = new File()
+  f.ropen("forcetwitch_fa.dat")
+  mTwitchVec.scanf(f)
+
+
+  theta_init = -30 //degrees
+  theta_deg = theta_init
+  theta_rad = theta_init*PI/180.0
+  theta_max = 0
+  theta_min = -50
+  alpha_deg = 120
+
+  TAv = 0
+  TAf = 0
+  GAv = 0
+  GAf = 0
+  TAl = 0
+  TAl_prev = 0
+  GAl = 0
+  GAl_prev = 0
+  TAl_init = 0
+  GAl_init = 0
+  moment_force = 0
+  DRG_TA_i = 0.5
+  DRG_GA_i = 0.5
+  TAp = 0
+  GAp = 0
+
+  taSpikeVec = new Vector()
+  taForceVec = new Vector()
+  gaSpikeVec = new Vector()
+  gaForceVec = new Vector()
+  tagaLenVec = new Vector(2)
+}
+
+func hill_val() {local tmp
+    val = $1
+    minv = $2
+    maxv = $3
+    samev = $4
+    stretch = $5
+    val = (val - samev)/(stretch)
+    tmp = tanh(val)
+    tmp = tmp + samev  
+    if (tmp >= samev) {
+        tmp = (tmp - (samev)) *((maxv-samev)/1.0) + (samev)
+    } else {
+        tmp = (tmp - (samev)) *((samev-minv)/1.0) + (samev)
+    }
+    return tmp
+}
+
+proc calc_pps() {  
+  TAl = $1
+  GAl = $2
+
+  if (abs(TAl - TAl_prev) > 0.2*default_oq_len) {
+    TAl_prev = TAl
+  }
+  if (abs(GAl - GAl_prev) > 0.2*default_or_len) {
+    GAl_prev = GAl
+  }
+
+  TAvel = ((TAl - TAl_prev)/0.000025)/default_oq_len
+  TAd = (TAl - TAl_prev)/default_oq_len
+  if(abs(TAvel) < 1e-7) { 
+    TAvel = 0.0
+  }
+  if(TAvel < 0) {
+    tIa = -65*sqrt(-TAvel)
+  } else {
+    tIa = 65*sqrt(TAvel)
+  }
+  TAp = tIa + 200*TAd + default_pps
+  TApII = 100*TAd + default_pps
+
+
+  GAvel = ((GAl - GAl_prev)/0.000025)/default_or_len
+  GAd = (GAl - GAl_prev)/default_or_len
+  if(abs(GAvel) < 1e-7) { 
+    GAvel = 0.0
+  }
+  if(GAvel < 0) {
+    tIa = -65*sqrt(-GAvel)
+  } else {
+    tIa = 65*sqrt(GAvel)
+  }
+  GAp = tIa + 200*GAd + default_pps
+  GApII = 100*GAd + default_pps
+
+  TApII = hill_val(TApII, min_pps, max_pps, default_pps, 20)
+  TAp = hill_val(TAp, min_pps, max_pps, default_pps, 20)
+  GAp = hill_val(GAp, min_pps, max_pps, default_pps, 20)
+  GApII = hill_val(GApII, min_pps, max_pps, default_pps, 20)
+  TAl_prev = TAl
+  GAl_prev = GAl
+
+  $o3.x[0] = TAp
+  $o3.x[1] = TApII
+  $o3.x[2] = GAp
+  $o3.x[3] = GApII
+}
+
+// calculate TA and GA current given TAl and GAl
+// $1 - TAl, $2 - GAl, $o3.x[0], $o3.x[1] - output currents
+proc calc_currents() {  
+  TAl = $1
+  GAl = $2
+  DRG_TA_i = (TAl - TAl_init)*(4.5-0.5)/(0.1415 - TAl_init)+0.5
+  if (DRG_TA_i < 0.5) {
+    DRG_TA_i = 0.5
+  }
+  DRG_GA_i = (GAl - GAl_init)*(4.5-0.5)/(0.1296 - GAl_init)+0.5
+  if (DRG_GA_i < 0.5) {
+    DRG_GA_i = 0.5
+  }
+  $o3.x[0] = DRG_TA_i
+  $o3.x[1] = DRG_GA_i
+}
+
+// perform convolution
+// $o1 - signal, $o2 - filter
+// $o3 - output
+proc convolve() {local i,j, i1, nconv localobj sig, filt, out
+  sig = $o1
+  filt = $o2
+  out = $o3
+  nconv = sig.size() + filt.size() - 1
+
+        //convolution process
+                i1 = (nconv-1)/2
+                tmp = 0.0
+                for j = 0, filt.size()-1 {
+                        if (i1 >= 0 && i1 < sig.size()-1) {
+                                tmp = tmp + (sig.x[i1] * filt.x[j])
+                        }
+
+                        i1 = i1 - 1
+                }
+                out.append(tmp)
+}
+
+proc moment() {local alpha_deg, op, oq, or, pq, rp, poq_angle, oqp_angle, por_angle, orp_angle, qpF, rpF, torq_q, torq_r, val, tmp
+  qpF = $1
+  rpF = $2
+  op = 0.1
+  oq = default_oq_len
+  or = default_or_len
+  alpha_deg = 120
+
+    // Get theta_rad from rigid mechanism
+    dummy_soma { 
+    theta_rad = theta_rigid
+    }
+
+
+    // hill theta
+    val = theta_rad*180.0/PI
+    theta_deg = hill_val(val, -50, 0, -30, 10)
+/*
+    val = (val - theta_init)/40  //for angle=-30, the output should be -30
+    tmp = tanh(val)
+    tmp = tmp + theta_init  // for angle=-30, output should be -30
+    if (tmp >= theta_init) {
+        tmp = (tmp - (theta_init)) *((theta_max-theta_init)/1.0) + (theta_init)
+    } else {
+        tmp = (tmp - (theta_init)) *((theta_init-theta_min)/1.0) + (theta_init)
+    }
+    theta_deg = tmp
+*/
+  
+
+  poq_angle = (90-theta_deg)*PI/180
+  pq = sqrt(op*op + oq*oq - 2*op*oq*cos(poq_angle))
+  oqp_angle = op*poq_angle/pq
+  torq_q = oq*qpF*sin(oqp_angle)
+
+  por_angle = (360-alpha_deg-(poq_angle*180.0/PI))*PI/180
+  rp = sqrt(op*op + or*or - 2*op*or*cos(por_angle))
+  orp_angle = op*por_angle/rp
+  torq_r = or*rpF*sin(orp_angle)
+
+  moment_force = (torq_r - torq_q)/1000.0 ///15000.0
+  TAl = pq
+  GAl = rp
+
+  $o3.x[0] = TAl
+  $o3.x[1] = GAl
+
+  // updated momemt_force used by rigid mechanism
+  dummy_soma { moment_rigid = moment_force}
+}
+
+// initialize ankle internal state and return the currents to be injected TA and GA DRG
+// input - none, output - $o3.x[0], $o3.x[1] - output currents
+proc ankle_init() {local op, oq, or, poq_angle, pq, por_angle, rp
+  op = 0.1
+  oq = default_oq_len
+  or = default_or_len
+  poq_angle = (90-theta_deg)*PI/180
+  pq = sqrt(op*op + oq*oq - 2*op*oq*cos(poq_angle))
+  TAl_init = pq
+
+  por_angle = (360-alpha_deg-(poq_angle*180.0/PI))*PI/180
+  rp = sqrt(op*op + or*or - 2*op*or*cos(por_angle))
+  GAl_init = rp
+  //calc_currents(TAl_init, GAl_init, $o1)
+  calc_pps(TAl_init, GAl_init, $o1)
+  TAl_prev = 0
+  GAl_prev = 0
+}
+
+// perform one step
+// input: $o1 - TAvVec, $o2 - GAvVec
+// output: calculated currents
+proc ankle_advance() {localobj TAvVec, GAvVec
+    TAvVec = $o1
+    GAvVec = $o2
+    taSpikeVec.spikebin(TAvVec, -20)
+    TAv = taSpikeVec.x[taSpikeVec.size()-1]
+    //taForceVec.convlv(taSpikeVec, mTwitchVecFD)
+    convolve(taSpikeVec, mTwitchVec, taForceVec)
+    TAf = taForceVec.x[taForceVec.size()-1]
+
+    gaSpikeVec.spikebin(GAvVec, -20)
+    GAv = gaSpikeVec.x[gaSpikeVec.size()-1]
+    convolve(gaSpikeVec, mTwitchVec, gaForceVec)
+    GAf = gaForceVec.x[gaForceVec.size()-1]
+
+    //$o3.x[0] = TAf
+    //$o3.x[1] = GAf
+
+    moment(TAf, GAf, tagaLenVec)
+    //calc_currents(tagaLenVec.x[0], tagaLenVec.x[1], $o3)
+    calc_pps(tagaLenVec.x[0], tagaLenVec.x[1], $o3)
+}
+
+endtemplate ankle_model

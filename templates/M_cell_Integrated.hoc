@@ -1,0 +1,1475 @@
+//Generated file
+{xopen("tools.hoc")}
+public soma
+create soma[1]
+public nsoma
+public inseg
+create inseg[1]
+public ninseg
+public node
+create node[1]
+public nnode
+public paranode
+create paranode[1]
+public nparanode
+public dendrite
+create dendrite[1]
+public ndendrite
+public nclist, synlist
+objectvar nclist, synlist
+public x, y, z
+public position
+public connect2target
+public synapse
+
+
+//init function
+proc init() {localobj r,rmechanism,soma_start_list,soma_start,soma_end_list,soma_end,inseg_start_list,inseg_start,inseg_end_list,inseg_end,node_start_list,node_start,node_end_list,node_end,paranode_start_list,paranode_start,paranode_end_list,paranode_end,dendrite_diam,dendrite_L,dendrite_start_list,dendrite_start,dendrite_end_list,dendrite_end
+r=new Random(neuroid_random())
+rmechanism=new Vector(2)
+x = y = z = 0
+nclist = new List()
+synlist = new List()
+nsoma=1
+create soma[nsoma]
+soma_start_list = new List()
+soma_start = new Vector(4)
+soma_start.x[0] = -41.0
+soma_start.x[1] = 0
+soma_start.x[2] = 0
+soma_start.x[3] = 82.0
+soma_start_list.append(soma_start)
+soma_end_list = new List()
+soma_end = new Vector(4)
+soma_end.x[0] = 41.0
+soma_end.x[1] = 0
+soma_end.x[2] = 0
+soma_end.x[3] = 82.0
+soma_end_list.append(soma_end)
+a=r.normal(0,5)
+mechanism_range("soma","motoneuron",rmechanism)
+soma_motoneuron_start = rmechanism.x[0]
+soma_motoneuron_end = rmechanism.x[1]
+mechanism_range("soma","pas",rmechanism)
+soma_pas_start = rmechanism.x[0]
+soma_pas_end = rmechanism.x[1]
+for i=0,nsoma-1 {
+soma[i] {
+  if ((i>=soma_motoneuron_start*nsoma) && (i<soma_motoneuron_end*nsoma)) {
+    insert motoneuron
+    gcaL_motoneuron=0.00005
+    gcak_motoneuron=0.1388
+  }
+  if ((i>=soma_pas_start*nsoma) && (i<soma_pas_end*nsoma)) {
+    insert pas
+    g_pas=0.0005
+  }
+  diam=82.0+a
+  cm=2
+  nseg=1
+  L=82.0+a
+  Ra=70.0
+  pt3dclear() pt3dadd(soma_start_list.o(i).x[0],soma_start_list.o(i).x[1],soma_start_list.o(i).x[2],soma_start_list.o(i).x[3])  pt3dadd(soma_end_list.o(i).x[0],soma_end_list.o(i).x[1],soma_end_list.o(i).x[2],soma_end_list.o(i).x[3]) 
+}
+}
+ninseg=1
+create inseg[ninseg]
+inseg_start_list = new List()
+inseg_start = new Vector(4)
+inseg_start.x[0] = 41.0
+inseg_start.x[1] = 0
+inseg_start.x[2] = 0
+inseg_start.x[3] = 10.0
+inseg_start_list.append(inseg_start)
+inseg_end_list = new List()
+inseg_end = new Vector(4)
+inseg_end.x[0] = 1041.0
+inseg_end.x[1] = 0
+inseg_end.x[2] = 0
+inseg_end.x[3] = 10.0
+inseg_end_list.append(inseg_end)
+mechanism_range("inseg","initial",rmechanism)
+inseg_initial_start = rmechanism.x[0]
+inseg_initial_end = rmechanism.x[1]
+for i=0,ninseg-1 {
+inseg[i] {
+  if ((i>=inseg_initial_start*ninseg) && (i<inseg_initial_end*ninseg)) {
+    insert initial
+    gnap_initial=0
+  }
+  diam=10.0
+  cm=2
+  nseg=5
+  L=1000.0
+  Ra=200.0
+  pt3dclear() pt3dadd(inseg_start_list.o(i).x[0],inseg_start_list.o(i).x[1],inseg_start_list.o(i).x[2],inseg_start_list.o(i).x[3])  pt3dadd(inseg_end_list.o(i).x[0],inseg_end_list.o(i).x[1],inseg_end_list.o(i).x[2],inseg_end_list.o(i).x[3]) 
+}
+}
+nnode=41
+create node[nnode]
+node_start_list = new List()
+node_start = new Vector(4)
+node_start.x[0] = 1041.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 1542.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 2043.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 2544.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 3045.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 3546.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 4047.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 4548.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 5049.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 5550.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 6051.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 6552.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 7053.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 7554.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 8055.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 8556.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 9057.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 9558.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 10059.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 10560.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 11061.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 11562.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 12063.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 12564.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 13065.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 13566.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 14067.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 14568.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 15069.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 15570.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 16071.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 16572.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 17073.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 17574.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 18075.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 18576.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 19077.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 19578.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 20079.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 20580.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_start = new Vector(4)
+node_start.x[0] = 21081.0
+node_start.x[1] = 0
+node_start.x[2] = 0
+node_start.x[3] = 1.656
+node_start_list.append(node_start)
+node_end_list = new List()
+node_end = new Vector(4)
+node_end.x[0] = 1042.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 1543.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 2044.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 2545.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 3046.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 3547.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 4048.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 4549.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 5050.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 5551.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 6052.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 6553.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 7054.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 7555.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 8056.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 8557.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 9058.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 9559.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 10060.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 10561.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 11062.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 11563.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 12064.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 12565.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 13066.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 13567.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 14068.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 14569.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 15070.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 15571.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 16072.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 16573.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 17074.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 17575.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 18076.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 18577.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 19078.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 19579.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 20080.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 20581.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+node_end = new Vector(4)
+node_end.x[0] = 21082.0
+node_end.x[1] = 0
+node_end.x[2] = 0
+node_end.x[3] = 1.656
+node_end_list.append(node_end)
+a=r.normal(8.74,2.25)
+if(a<8){a=8}
+mechanism_range("node","axnode",rmechanism)
+node_axnode_start = rmechanism.x[0]
+node_axnode_end = rmechanism.x[1]
+for i=0,nnode-1 {
+node[i] {
+  if ((i>=node_axnode_start*nnode) && (i<node_axnode_end*nnode)) {
+    insert axnode
+    gnapbar_axnode=0
+  }
+  diam=0.056+0.32*a
+  Ra=70.0
+  cm=2
+  nseg=1
+  L=1
+  pt3dclear() pt3dadd(node_start_list.o(i).x[0],node_start_list.o(i).x[1],node_start_list.o(i).x[2],node_start_list.o(i).x[3])  pt3dadd(node_end_list.o(i).x[0],node_end_list.o(i).x[1],node_end_list.o(i).x[2],node_end_list.o(i).x[3]) 
+}
+}
+nparanode=41
+create paranode[nparanode]
+paranode_start_list = new List()
+paranode_start = new Vector(4)
+paranode_start.x[0] = 1042.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 1543.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 2044.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 2545.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 3046.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 3547.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 4048.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 4549.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 5050.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 5551.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 6052.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 6553.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 7054.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 7555.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 8056.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 8557.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 9058.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 9559.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 10060.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 10561.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 11062.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 11563.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 12064.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 12565.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 13066.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 13567.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 14068.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 14569.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 15070.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 15571.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 16072.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 16573.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 17074.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 17575.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 18076.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 18577.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 19078.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 19579.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 20080.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 20581.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_start = new Vector(4)
+paranode_start.x[0] = 21082.0
+paranode_start.x[1] = 0
+paranode_start.x[2] = 0
+paranode_start.x[3] = 5.0
+paranode_start_list.append(paranode_start)
+paranode_end_list = new List()
+paranode_end = new Vector(4)
+paranode_end.x[0] = 1542.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 2043.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 2544.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 3045.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 3546.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 4047.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 4548.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 5049.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 5550.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 6051.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 6552.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 7053.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 7554.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 8055.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 8556.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 9057.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 9558.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 10059.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 10560.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 11061.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 11562.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 12063.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 12564.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 13065.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 13566.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 14067.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 14568.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 15069.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 15570.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 16071.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 16572.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 17073.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 17574.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 18075.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 18576.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 19077.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 19578.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 20079.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 20580.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 21081.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+paranode_end = new Vector(4)
+paranode_end.x[0] = 21582.0
+paranode_end.x[1] = 0
+paranode_end.x[2] = 0
+paranode_end.x[3] = 5.0
+paranode_end_list.append(paranode_end)
+a=r.normal(8.74,2.25)
+if(a<8){a=8}
+mechanism_range("paranode","pas",rmechanism)
+paranode_pas_start = rmechanism.x[0]
+paranode_pas_end = rmechanism.x[1]
+for i=0,nparanode-1 {
+paranode[i] {
+  if ((i>=paranode_pas_start*nparanode) && (i<paranode_pas_end*nparanode)) {
+    insert pas
+    g_pas=0.001/(2*9.15*a+2*30)
+    e_pas=-85
+  }
+  diam=a
+  Ra=70.0
+  cm=0.1/(2*9.15*a+2*30)
+  nseg=5
+  L=100*a
+}
+}
+ndendrite=12
+create dendrite[ndendrite]
+dendrite_diam = new Vector(12)
+dendrite_diam.x[0] = 15.2773868556
+dendrite_diam.x[1] = 17.4341944116
+dendrite_diam.x[2] = 19.7707359307
+dendrite_diam.x[3] = 17.9733963007
+dendrite_diam.x[4] = 17.6139283747
+dendrite_diam.x[5] = 16.3557906336
+dendrite_diam.x[6] = 14.3787170405
+dendrite_diam.x[7] = 12.9408453365
+dendrite_diam.x[8] = 10.4245698544
+dendrite_diam.x[9] = 8.53736324282
+dendrite_diam.x[10] = 6.74002361275
+dendrite_diam.x[11] = 3.14534435262
+dendrite_L = new Vector(12)
+dendrite_L.x[0] = 500.0
+dendrite_L.x[1] = 500.0
+dendrite_L.x[2] = 700.0
+dendrite_L.x[3] = 900.0
+dendrite_L.x[4] = 500.0
+dendrite_L.x[5] = 400.0
+dendrite_L.x[6] = 600.0
+dendrite_L.x[7] = 400.0
+dendrite_L.x[8] = 500.0
+dendrite_L.x[9] = 500.0
+dendrite_L.x[10] = 500.0
+dendrite_L.x[11] = 500.0
+dendrite_start_list = new List()
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -41.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 15.2773868556
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -541.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 17.4341944116
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -1041.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 19.7707359307
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -1741.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 17.9733963007
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -2641.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 17.6139283747
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -3141.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 16.3557906336
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -3541.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 14.3787170405
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -4141.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 12.9408453365
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -4541.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 10.4245698544
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -5041.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 8.53736324282
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -5541.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 6.74002361275
+dendrite_start_list.append(dendrite_start)
+dendrite_start = new Vector(4)
+dendrite_start.x[0] = -6041.0
+dendrite_start.x[1] = 0
+dendrite_start.x[2] = 0
+dendrite_start.x[3] = 3.14534435262
+dendrite_start_list.append(dendrite_start)
+dendrite_end_list = new List()
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -541.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 15.2773868556
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -1041.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 17.4341944116
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -1741.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 19.7707359307
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -2641.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 17.9733963007
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -3141.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 17.6139283747
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -3541.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 16.3557906336
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -4141.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 14.3787170405
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -4541.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 12.9408453365
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -5041.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 10.4245698544
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -5541.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 8.53736324282
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -6041.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 6.74002361275
+dendrite_end_list.append(dendrite_end)
+dendrite_end = new Vector(4)
+dendrite_end.x[0] = -6541.0
+dendrite_end.x[1] = 0
+dendrite_end.x[2] = 0
+dendrite_end.x[3] = 3.14534435262
+dendrite_end_list.append(dendrite_end)
+mechanism_range("dendrite","pas",rmechanism)
+dendrite_pas_start = rmechanism.x[0]
+dendrite_pas_end = rmechanism.x[1]
+mechanism_range("dendrite","CaN",rmechanism)
+dendrite_CaN_start = rmechanism.x[0]
+dendrite_CaN_end = rmechanism.x[1]
+mechanism_range("dendrite","CaL",rmechanism)
+dendrite_CaL_start = rmechanism.x[0]
+dendrite_CaL_end = rmechanism.x[1]
+mechanism_range("dendrite","KCa",rmechanism)
+dendrite_KCa_start = rmechanism.x[0]
+dendrite_KCa_end = rmechanism.x[1]
+for i=0,ndendrite-1 {
+dendrite[i] {
+  if ((i>=dendrite_pas_start*ndendrite) && (i<dendrite_pas_end*ndendrite)) {
+    insert pas
+    e_pas=-70.0
+    g_pas=7.7e-06
+  }
+  if ((i>=dendrite_CaN_start*ndendrite) && (i<dendrite_CaN_end*ndendrite)) {
+    insert CaN
+    gcanbar_CaN=0.001257
+  }
+  if ((i>=dendrite_CaL_start*ndendrite) && (i<dendrite_CaL_end*ndendrite)) {
+    insert CaL
+    gcalbar_CaL=0.00048
+  }
+  if ((i>=dendrite_KCa_start*ndendrite) && (i<dendrite_KCa_end*ndendrite)) {
+    insert KCa
+    gkcabar_KCa=0.00198
+  }
+  diam=dendrite_diam.x[i]
+  cm=2
+  nseg=11
+  L=dendrite_L.x[i]
+  Ra=70.0
+  pt3dclear() pt3dadd(dendrite_start_list.o(i).x[0],dendrite_start_list.o(i).x[1],dendrite_start_list.o(i).x[2],dendrite_start_list.o(i).x[3])  pt3dadd(dendrite_end_list.o(i).x[0],dendrite_end_list.o(i).x[1],dendrite_end_list.o(i).x[2],dendrite_end_list.o(i).x[3]) 
+}
+}
+connect inseg[0](0.0), soma[0](0.0)
+connect dendrite[0](0.0), soma[0](1.0)
+for i=0,ndendrite-2{
+connect dendrite[i+1](0.0), dendrite[i](1.0)
+}
+for i=0,nnode-2{
+connect paranode[i](0.0), node[i](1.0)
+}
+for i=0,nnode-2{
+connect node[i+1](0.0), paranode[i](1.0)
+}
+connect node[0](0.0), inseg[0](1.0)
+}
+
+
+//position function
+proc position() {
+    soma for i = 0, n3d()-1 {
+        pt3dchange(i, $1-x+x3d(i), $2-y+y3d(i), $3-z+z3d(i), diam3d(i))
+    }
+    inseg for i = 0, n3d()-1 {
+        pt3dchange(i, $1-x+x3d(i), $2-y+y3d(i), $3-z+z3d(i), diam3d(i))
+    }
+    node for i = 0, n3d()-1 {
+        pt3dchange(i, $1-x+x3d(i), $2-y+y3d(i), $3-z+z3d(i), diam3d(i))
+    }
+    paranode for i = 0, n3d()-1 {
+        pt3dchange(i, $1-x+x3d(i), $2-y+y3d(i), $3-z+z3d(i), diam3d(i))
+    }
+    dendrite for i = 0, n3d()-1 {
+        pt3dchange(i, $1-x+x3d(i), $2-y+y3d(i), $3-z+z3d(i), diam3d(i))
+    }
+    x = $1 y = $2 z = $3
+}
+
+
+//connect2target function
+obfunc connect2target() {localobj nc
+  node[nnode-1] nc = new NetCon(&v(1), $o1)
+  nc.threshold = -20
+  if (numarg() == 2) { $o2 = nc } // for backward compatibility
+  return nc
+}
+
+
+//synapse function
+obfunc synapse() {localobj syn
+  nsoma = 1
+  ninseg = 1
+  nnode = 41
+  nparanode = 41
+  ndendrite = 12
+  if(strcmp($s1,"IAfex") == 0) {
+    dendrite[int(poisson_index(4,0,ndendrite-1))] syn = new ExpSyn(uniform_position())
+    syn.tau = 0.5
+    syn.e = 0
+  } else if(strcmp($s1,"EXINex") == 0) {
+    dendrite[int(poisson_index(4.2,0,ndendrite-1))] syn = new ExpSyn(uniform_position())
+    syn.tau = 0.5
+    syn.e = 0
+  } else if(strcmp($s1,"IAIntin") == 0) {
+    soma[int(0)] syn = new Exp2Syn(0.5)
+    syn.tau2 = 2
+    syn.tau1 = 1.5
+    syn.e = -75
+  } else if(strcmp($s1,"EES") == 0) {
+    node[int(3)] syn = new ExpSyn(0.5)
+    syn.tau = 0.1
+    syn.e = 50
+  } else if(strcmp($s1,"GLU") == 0) {
+    soma[int(0)] syn = new GLU(0.5)
+  } else if(strcmp($s1,"GABA") == 0) {
+    soma[int(0)] syn = new GABA(0.5)
+  }
+  synlist.append(syn)
+  return syn
+}
+
+
+func poisson_index(){localobj r
+  a=0
+  r=new Random(neuroid_random())
+  temp=r.poisson($1)
+  for j=1,5{
+    temp = r.repick()
+    a+=temp
+  }
+  a = int(a/5)-2
+  if (a<$2) {a=$2}
+  if (a>$3) {a=$3}
+  return a
+}
+
+
+func uniform_position() {localobj r
+  r=new Random(neuroid_random())
+  b=r.uniform(0,1)
+  return b
+}
+
+
+proc mechanism_range() {localobj rvec,f
+  rvec = $o3
+  rvec.x[0] = 0.0
+  rvec.x[1] = 1.0
+  strdef segm,mech
+  f = new File()
+  f.ropen("M_cell_Integrated.dat")
+  if (!f.isopen()){
+    return
+  }
+  while (!f.eof()) {
+    f.scanstr(segm)
+    f.scanstr(mech)
+    if ((strcmp(segm,$s1) == 0) && (strcmp(mech,$s2) == 0)){
+        rvec.x[0] = f.scanvar()
+        rvec.x[1] = f.scanvar()
+    } else {
+        f.gets(segm)
+    }
+  }
+  f.close()
+}
+
+
