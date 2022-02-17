@@ -3,7 +3,7 @@
 ### Madhav Vinodh Pithapuram, Mohan Raghavan 
 
 
-## Interaction_maps folder contains code to generate figure 5 of the manuscript 
-## Ia_excitatory folder contains simulations folder to generate the figure 6 and 7 of the manuscript 
+Interaction_maps folder contains code to generate figure 5 of the manuscript 
+Ia_excitatory folder contains simulations folder to generate the figure 6 and 7 of the manuscript 
 
 ### Details of how 
