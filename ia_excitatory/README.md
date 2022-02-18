@@ -9,14 +9,15 @@ Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop 
 
 2. **Python 3.7**
 
-requied librabries: numpy, pandas, os, matplotlib, seaborn,
+requied librabries: numpy, pandas, os, matplotlib, seaborn, openpyxl
+libraries neuron and opensim can instaled in the steps 2 and 3
 
 3. **OpenSim with Python3 bindings**
 
-Install opensim version 4.x from the link given below: 
+Install opensim version 4.x from the link: 
 https://github.com/opensim-org/opensim-core
 
-Confirm the installion of OpenSim with python bindings on Ubuntu by follwoing the instructions given in the link below:
+Confirm the installion of OpenSim with python bindings on Ubuntu by follwoing the instructions given in the link:
 https://simtk-confluence.stanford.edu:8443/display/OpenSim/Scripting+in+Python
 
 
