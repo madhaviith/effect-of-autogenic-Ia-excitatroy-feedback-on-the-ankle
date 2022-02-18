@@ -8,7 +8,7 @@
 #  -----------------------
 #   Name             Date            Changes
 #   ---------       -------     ----------------------
-#   Raghu S Iyengar  Aug 2018      Initial Creation
+#   Raghu S Iyengar  Aug 2018      Initial Creation and implemented client-server protocol
 #   Madhav Vinodh     2020         1. redesigned the code to handle multiple muscles based on the osim model and number of msucles 
 #                                  2. implemented find and search based afferent feedback calculation, 
 #                                  3. new function to send the activations to the actuators,   
