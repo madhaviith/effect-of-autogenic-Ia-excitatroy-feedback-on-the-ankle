@@ -26,6 +26,6 @@ https://simtk-confluence.stanford.edu:8443/display/OpenSim/Scripting+in+Python
 NEURON software can be installed from the link here: https://www.neuron.yale.edu/neuron/download
 However the codes were tested on NEURON version 7.6. And it is prefferable to install NEURON 7.6 which can be found here: https://neuron.yale.edu/ftp/neuron/versions/v7.6/ 
 
-Once the required version is downloaded follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the link. 
+Once the required version is downloaded, follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the same link. 
 
 
