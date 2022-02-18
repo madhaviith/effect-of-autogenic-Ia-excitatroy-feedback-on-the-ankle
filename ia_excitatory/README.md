@@ -22,7 +22,7 @@ Each of these folders contain
             
             - synthesizes the afferent activity and send them to Afferent neurons of connectome.
       
-Both **main.py** and **neuroid_osim_glue.py** should be run parallely in-order to achieve neuro-musculoskeletal co-simulation (see readme.pdf to run the model)
+Both **main.py** and **neuroid_osim_glue.py** should be run parallely in-order to achieve neuro-musculoskeletal co-simulation (Refer run_instructions.pdf to run the model)
 
 Although the code contents of **sim_o** and **sim_c** are same, they differ setup and the output data. While former folder runs open-loop simulations and later folder close-loop with proprioception 'on'. 
 
@@ -57,7 +57,7 @@ However the codes were tested on NEURON version 7.6. And it is prefferable to in
 
 Once the required version is downloaded, follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the same link. 
 
-#### Download all the contents of this folder then refer to readme.pdf to run the model and generate the graphs. 
+#### Download all the contents of this folder then refer to run_instructions.pdf to run the model and generate the graphs. 
 Or Once downloaded simply execute the following in the terminal to only plot the simulation output   
 
   - python plots.py
