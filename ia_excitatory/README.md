@@ -28,5 +28,6 @@ However the codes were tested on NEURON version 7.6. And it is prefferable to in
 
 Once the required version is downloaded, follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the same link. 
 
-#### Refer readme.pdf to run the model and generate the graphs 
+#### Refer readme.pdf to run the model and generate the graphs. 
+Or to simply plot the simulation ouput execute **python** plots.py in the terminal  
 
