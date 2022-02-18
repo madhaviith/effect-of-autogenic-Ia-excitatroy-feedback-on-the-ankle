@@ -1,4 +1,4 @@
-# Supplementary-codes for the paper under review at IOP-SciNotes 
+# Supplementary-codes  
 ## Article title : Automatic rule-based generation of spinal cord connectome model for a neuron-musculoskeletal limb in-slico
 ##### Article authors : Madhav Vinodh Pithapuram, Mohan Raghavan 
 
