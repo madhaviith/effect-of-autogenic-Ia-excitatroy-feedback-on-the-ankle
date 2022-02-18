@@ -5,7 +5,7 @@ This package essentially contais two simulations folders designated as **sim_o**
 
 1. **Linux platform (preferably Ubuntu)**
 
-Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space. From our experince Good graphics and RAM >8GB is rquired to run the simulations  
+Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space. From our experince a good graphics card and RAM >8GB is rquired to run the simulations.   
 
 2. **python 3.7**
 
