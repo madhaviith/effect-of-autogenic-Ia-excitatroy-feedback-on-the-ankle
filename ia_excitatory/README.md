@@ -5,15 +5,15 @@ This package essentially contais two simulations folders designated as **sim_o**
 
 1. **Linux platform (preferably Ubuntu)**
 
-Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space.
+Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space. From our experince Good graphics and RAM >8GB is rquired to run the simulations  
 
-2. **Python 3.7**
+2. **python 3.7**
 
 requied librabries: numpy, pandas, os, matplotlib, seaborn, openpyxl
 
 libraries "opensim" and "neuron" can instaled in the steps 2 and 3
 
-3. **OpenSim with Python3 bindings**
+3. **OpenSim with python3 bindings**
 
 Install opensim version 4.x from the link: 
 https://github.com/opensim-org/opensim-core
@@ -21,5 +21,11 @@ https://github.com/opensim-org/opensim-core
 Confirm the installion of OpenSim with python bindings on Ubuntu by follwoing the instructions given in the link:
 https://simtk-confluence.stanford.edu:8443/display/OpenSim/Scripting+in+Python
 
+4. **NEURON with python3 bindings**
+
+NEURON software can be installed from the link here: https://www.neuron.yale.edu/neuron/download
+However the codes were tested on NEURON version 7.6. And it is prefferable to install NEURON 7.6 which can be found here: https://neuron.yale.edu/ftp/neuron/versions/v7.6/ 
+
+Once the required version is downloaded follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the link. 
 
 
