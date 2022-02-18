@@ -8,10 +8,10 @@
 #  -----------------------
 #   Name             Date            Changes
 #   ---------       -------     ----------------------
-#   Raghu S Iyengar  Aug 2015      Initial Creation
-#   Madhav Vinodh    Oct 2019      Made changes to handle multiple motoneurons, 
-#                                  Added finctions to calculate the 
-#
+#   Raghu S Iyengar  Aug 2018      Initial Creation and created client-scoket protocol
+#   Madhav Vinodh    Oct 2019      redesigned the code, made changes to handle multiple motoneurons to osim connect muscles,
+#                                  Added finctions to calculate the spike frequency, muscle activation
+#                                     
 #   
 #
 ######################################################################################
