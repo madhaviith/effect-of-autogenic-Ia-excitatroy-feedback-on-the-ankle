@@ -19,7 +19,7 @@ Required libraries:  pandas, numpy, os, seaborn, matplotlib, json, openpyxl
 
 ##### Step1: Open the terminal and run interactions_maps.py code as shown below
 
-~$ py iteraction_maps.py 
+~$ python iteraction_maps.py 
 
 ##### Step2: wait for the comletion of code and graph windows to pop-up.  
 
