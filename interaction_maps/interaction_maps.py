@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 ############################################################################################################
-#  This code is part of project abc developed at abc Labs
-#  Department of xyz, xyz institute of technology 
+#  This code is part of project NEUROiD developed at Spine Labs
+#  Dept. of BME,
+#  IIT Hyderabad
+#  www.iith.ac.in/~mohanr
+#
+#  Revision History
+#  -----------------------
+#   Name             Date            Changes
+#  ----------       -------     ----------------------
+#   Madhav vinodh   01/01/2019      Initial Creation
 ############################################################################################################
 # Autogeneration of spinal circuits using curated data 
 ############################################################################################################
