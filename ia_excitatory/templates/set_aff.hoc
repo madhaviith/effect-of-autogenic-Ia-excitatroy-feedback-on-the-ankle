@@ -1,0 +1,30 @@
+begintemplate set_aff
+public pp, connect2target, x, y, z, position, is_art, set_interval, get_interval
+objref pp, file
+
+proc init() {
+
+  pp = new NetStim()
+  pp.interval=1
+  pp.start=0
+  pp.noise=0
+  pp.number=1000000000
+}
+
+func is_art() { return 1 }
+
+obfunc connect2target() { localobj nc
+  nc = new NetCon(pp, $o1)
+  if (numarg() == 2) { $o2 = nc }
+  return nc
+}
+
+proc position(){x=$1  y=$2  z=$3}
+
+proc set_interval() {
+    pp.interval = $1
+}
+func get_interval() {
+    return pp.interval
+}
+endtemplate set_aff

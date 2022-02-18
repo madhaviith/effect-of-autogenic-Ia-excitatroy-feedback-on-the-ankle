@@ -1,0 +1,87 @@
+//Generated file
+{xopen("tools.hoc")}
+public pp
+objref pp
+public nclist
+objectvar nclist
+public position
+public connect2target
+public synapse
+
+
+//init function
+proc init() {
+x = y = z = 0
+  pp = new IntFire4()
+  pp.taui1 = 5
+  pp.taui2 = 10
+  pp.taum = 30
+  pp.taue = 0.5
+  nclist = new List()
+}
+
+
+//position function
+proc position(){x=$1  y=$2  z=$3}
+
+
+//connect2target function
+obfunc connect2target() {localobj nc
+ nc = new NetCon(pp, $o1)
+  if (numarg() == 2) { $o2 = nc } // for backward compatibility
+  return nc
+}
+
+
+//synapse function
+obfunc synapse() {localobj syn
+  return pp
+}
+
+
+func poisson_index(){localobj r
+  a=0
+  r=new Random(neuroid_random())
+  temp=r.poisson($1)
+  for j=1,5{
+    temp = r.repick()
+    a+=temp
+  }
+  a = int(a/5)-2
+  if (a<$2) {a=$2}
+  if (a>$3) {a=$3}
+  return a
+}
+
+
+func uniform_position() {localobj r
+  r=new Random(neuroid_random())
+  b=r.uniform(0,1)
+  return b
+}
+
+
+proc mechanism_range() {localobj rvec,f
+  rvec = $o3
+  rvec.x[0] = 0.0
+  rvec.x[1] = 1.0
+  strdef segm,mech
+  f = new File()
+  f.ropen("Int_F.dat")
+  if (!f.isopen()){
+    return
+  }
+  while (!f.eof()) {
+    f.scanstr(segm)
+    f.scanstr(mech)
+    if ((strcmp(segm,$s1) == 0) && (strcmp(mech,$s2) == 0)){
+        rvec.x[0] = f.scanvar()
+        rvec.x[1] = f.scanvar()
+    } else {
+        f.gets(segm)
+    }
+  }
+  f.close()
+}
+
+
