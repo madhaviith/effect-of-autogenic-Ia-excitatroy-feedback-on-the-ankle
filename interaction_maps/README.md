@@ -4,7 +4,7 @@ This folder contains the codes to generate ipsilateral spinal connectome from th
 
 ### Software and hardware requirements:
 
-2. Linux desktop (preferrably installed with Ubuntu)
+2. Linux desktop (preferably Ubuntu)
 
 Both code development and testing was carried out on **Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space**. 
 
