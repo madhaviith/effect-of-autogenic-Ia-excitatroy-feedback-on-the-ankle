@@ -20,7 +20,7 @@
 # nc_explicit.xlsx: Describes the source and target neurons (bascially the S(kxk) of Figure 2 and Figure 1)
 #
 #
-# Refer supplementary-A and figure-2 of manuscript for more details of how the algorithm works
+# Refer supplementary-A and figure-2 of manuscript for more details on how the algorithm works
 #
 ############################################################################################################
  
