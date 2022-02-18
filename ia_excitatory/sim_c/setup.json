@@ -1,0 +1,474 @@
+{
+  "inputs": [
+    {
+      "id": "0",
+      "targets": [
+        {
+          "nc_weight": 1,
+          "perc_cells": 1,
+          "randomize": "yes",
+          "randomize_delay": 25,
+          "region": "Human_L4_Ta9_L_aMot_ta",
+          "stim_delay": 0,
+          "stim_dur": 100,
+          "stim_freq": 40
+        }
+      ],
+      "type": "netstim_soma"
+    }
+  ],
+  "responses": [
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_L4_Ta9_L_aMot_ta",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_gaslat",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_gasmed",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_sol",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_gaslat",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_gasmed",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_sol",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_S2_GasSol9_L_aMot_sol",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "0",
+      "target": {
+        "region": "Human_S3_GasSol9_L_aMot_sol",
+        "segment": "node"
+      },
+      "type": "voltage"
+    },
+    {
+      "id": "1",
+      "target": {
+        "region": "Human_L4_Ta9_L_aMot_ta",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "2",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_gaslat",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "3",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_gasmed",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "4",
+      "target": {
+        "region": "Human_L5_GasSol9_L_aMot_sol",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "5",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_gaslat",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "6",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_gasmed",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "7",
+      "target": {
+        "region": "Human_S1_GasSol9_L_aMot_sol",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "8",
+      "target": {
+        "region": "Human_S2_GasSol9_L_aMot_sol",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "9",
+      "target": {
+        "region": "Human_S3_GasSol9_L_aMot_sol",
+        "segment": "soma"
+      },
+      "type": "spike"
+    },
+    {
+      "id": "1",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_L4_L4_drg_L_Ia_ta"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "2",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_L5_L5_drg_L_Ia_gaslat"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "3",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_L5_L5_drg_L_Ia_gasmed"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "4",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_L5_L5_drg_L_Ia_sol"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "5",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_S1_S1_drg_L_Ia_gaslat"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "6",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_S1_S1_drg_L_Ia_gasmed"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "7",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_S1_S1_drg_L_Ia_sol"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "8",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_S2_S2_drg_L_Ia_sol"
+      },
+      "type": "variable"
+    },
+    {
+      "id": "9",
+      "target": {
+        "member": "pp.m",
+        "obj": "Human_S3_S3_drg_L_Ia_sol"
+      },
+      "type": "variable"
+    }
+  ],
+  "setup": {
+    "lfp": {
+      "enable": "False",
+      "plot_run_ids": [
+        0
+      ],
+      "position": [
+        438.93,
+        -1062.12,
+        500
+      ]
+    },
+    "opensim": {
+      "enable": "True"
+    },
+    "testing_mode": "close_loop"
+  },
+  "runs": {
+    "dt": 0.05,
+    "run_params": [
+      {
+        "input": [
+          {
+            "id": "0",
+            "type": "ees"
+          }
+        ]
+      }
+    ],
+    "tstop": [
+      150
+    ],
+    "window": 30
+  },
+  "plots": [
+    {
+      "data": [
+        {
+          "label": "EES Stim (Extensor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "ees_0",
+          "ytitle": "EES Stim (Hz)"
+        },
+        {
+          "label": "EES Stim (Flexor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "ees_1",
+          "ytitle": "EES Stim (Hz)"
+        }
+      ],
+      "title": "Input Stimulation",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "Ia PPS (Extensor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "ext_Ia",
+          "ytitle": "Ia (PPS)"
+        },
+        {
+          "label": "Ia PPS (Flexor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "flex_Ia",
+          "ytitle": "Ia (PPS)"
+        }
+      ],
+      "title": "Ia Afferent frequency",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "II PPS (Extensor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "ext_II",
+          "ytitle": "II (PPS)"
+        },
+        {
+          "label": "II PPS (Flexor)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "flex_II",
+          "ytitle": "II (PPS)"
+        }
+      ],
+      "title": "II Afferent frequency",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "ankle angle",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "aangle",
+          "ytitle": "ankle angle (rad)"
+        }
+      ],
+      "title": "ankle angle (rad)",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "Extensor Motoneuron Axon Potential (mV)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "voltage_0",
+          "ytitle": "voltage (mV)"
+        },
+        {
+          "label": "Flexor Motoneuron Axon Potential (mV)",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "voltage_1",
+          "ytitle": "voltage (mV)"
+        }
+      ],
+      "title": "Extensor, Flexor Axon Potential",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "ina - Extensor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_1",
+          "ytitle": "ina"
+        },
+        {
+          "label": "ina - Flexor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_2",
+          "ytitle": "ina"
+        }
+      ],
+      "title": "ina",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "ikrect - Extensor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_3",
+          "ytitle": "ikrect"
+        },
+        {
+          "label": "ikrect - Flexor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_4",
+          "ytitle": "ikrect"
+        }
+      ],
+      "title": "ikrect",
+      "type": "timeseries"
+    },
+    {
+      "data": [
+        {
+          "label": "icaN - Extensor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_5",
+          "ytitle": "icaN"
+        },
+        {
+          "label": "icaN - Flexor",
+          "run_id": "0",
+          "x": "time",
+          "xtitle": "time (ms)",
+          "y": "variable_6",
+          "ytitle": "icaN"
+        }
+      ],
+      "title": "icaN",
+      "type": "timeseries"
+    }
+  ],
+  "motoneurons": [
+    "Human_L4_Ta9_L_aMot_ta",
+    "Human_L5_GasSol9_L_aMot_gaslat",
+    "Human_L5_GasSol9_L_aMot_gasmed",
+    "Human_L5_GasSol9_L_aMot_sol",
+    "Human_S1_GasSol9_L_aMot_gaslat",
+    "Human_S1_GasSol9_L_aMot_gasmed",
+    "Human_S1_GasSol9_L_aMot_sol",
+    "Human_S2_GasSol9_L_aMot_sol",
+    "Human_S3_GasSol9_L_aMot_sol"
+  ],
+  "drg_neurons": [
+    "Human_L4_L4_drg_L_Ia_ta",
+    "Human_L5_L5_drg_L_Ia_gaslat",
+    "Human_L5_L5_drg_L_Ia_gasmed",
+    "Human_L5_L5_drg_L_Ia_sol",
+    "Human_S1_S1_drg_L_Ia_gaslat",
+    "Human_S1_S1_drg_L_Ia_gasmed",
+    "Human_S1_S1_drg_L_Ia_sol",
+    "Human_S2_S2_drg_L_Ia_sol",
+    "Human_S3_S3_drg_L_Ia_sol"
+  ],
+  "reset_stims": [
+    {
+      "delay_end_time": 20,
+      "delay_start_time": 0,
+      "per_cells": 1,
+      "stim_obj": "'h.stim_objlist_ees_0'",
+      "target_cell_group": "Human_L4_Ta9_L_aMot_ta",
+      "weight": 1
+    }
+  ]
+}
