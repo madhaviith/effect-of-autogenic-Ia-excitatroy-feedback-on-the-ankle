@@ -9,9 +9,9 @@ Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop 
 
 2. **python 3.7**
 
-requied librabries: numpy, pandas, os, matplotlib, seaborn, openpyxl
+requied librabries: numpy, pandas, os, matplotlib, seaborn, openpyxl, opensim, neuron
 
-libraries "opensim" and "neuron" can instaled in the steps 2 and 3
+libraries "opensim" and "neuron" can installed in the steps 2 and 3
 
 3. **OpenSim with python3 bindings**
 
@@ -28,4 +28,5 @@ However the codes were tested on NEURON version 7.6. And it is prefferable to in
 
 Once the required version is downloaded, follow the installation instructions to **setup InterViews** and **setup NEURON with python** here: https://neuron.yale.edu/neuron/download/compile_linux. Also check if **python_path** is properly provided and is bound with NEURON as per the instructions provided in the same link. 
 
+#### Refer readme.pdf to run the model and generate the graphs 
 
