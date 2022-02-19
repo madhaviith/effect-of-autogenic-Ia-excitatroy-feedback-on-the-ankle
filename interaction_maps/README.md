@@ -1,6 +1,6 @@
 ## Automatic generation of spinal connectome using curated data of spinal neurons, conection rules, muscles information. Refer figure 2 of the manuscript and supplementary-A for the algorithm and definitions of inputs(.xlsx sheets). 
 
-This folder contains the codes to generate ipsilateral spinal connectome from the curated **spinal_neurons.xlsx, connection_rules.xlsx, movement_types.xlsx, muscles.xlsx** and generates figure in **figure 5** of the mauscript that describes the spinal afferent based muscle-muscle interactions.  
+This folder contains the codes to generate ipsilateral spinal connectome from the curated **spinal_neurons.xlsx, connection_rules.xlsx, movement_types.xlsx, muscles.xlsx** data. And also generates muscle-muscle interaction maps shown in **figure 5** of the mauscript.  
 
 ### Software and hardware requirements:
 
