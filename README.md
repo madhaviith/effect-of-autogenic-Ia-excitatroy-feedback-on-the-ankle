@@ -13,5 +13,5 @@ __________________________________
 
 **Note** : Please follow README.md in each of the obove folders for the list of dependencies, required softwares, installation and run instructions.
 
-## for querries regarding the installation and simulation issues contact
+## For querries regarding the installation and simulation issues contact
     -bm15resch11001@iith.ac.in 
