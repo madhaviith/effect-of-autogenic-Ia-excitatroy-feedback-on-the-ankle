@@ -12,3 +12,6 @@ __________________________________
 2. **Ia_ecxitatory** folder contains open_loop and close_loop folders to carryout the simulation that demonstrates the effect of Ia feeedback on the ongoing ankle angle and mainly generates graphs presented in **figure 6 and 7** of the manuscript. 
 
 **Note** : Please follow README.md in each of the obove folders for the list of dependencies, required softwares, installation and run instructions.
+
+#### for querries regarding the installation and simulation issues contact
+    -bm15resch11001@iith.ac.in 
