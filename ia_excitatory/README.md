@@ -37,7 +37,7 @@ Both code development and testing was carried out on Ubuntu-18.04.6-LTS desktop 
 
 requied librabries: numpy, pandas, os, matplotlib, seaborn, openpyxl, opensim, neuron
 
-libraries "opensim" and "neuron" can installed in the steps 2 and 3
+libraries "opensim" and "neuron" can installed in the steps 3 and 4 respectively
 
 3. **OpenSim with python3 bindings**
 
