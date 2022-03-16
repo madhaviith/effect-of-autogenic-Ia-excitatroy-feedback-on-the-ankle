@@ -4,13 +4,13 @@ This folder contains the codes to generate ipsilateral spinal connectome from th
 
 ### Software and hardware requirements:
 
-2. Linux desktop (preferably Ubuntu)
+1. Linux desktop (preferably Ubuntu)
 
 Both code development and testing was carried out on **Ubuntu-18.04.6-LTS desktop with intel-core i7 CPU and NVIDIA quadro P1000 graphics and 16GB RAM space**. 
 
-The above hardware requirements are for the indicative purposes and any desktop latest versions of ubuntu should be compatible with the current codes. We have not tested on the other linux platforms  like mint os or cent os etc. But the presented codes should run if the compatible python software and required libraries are installed. 
+The above hardware requirements are for the indicative purposes and any desktop latest versions of ubuntu should be compatible with the current codes. We have not tested on other linux platforms  like mintOS or centOS etc. But the presented codes should run if the compatible python software and required libraries are installed. 
 
-1. Python 3.7 
+2. Python 3.7 
 
 Required libraries:  pandas, numpy, os, seaborn, matplotlib, json, openpyxl 
 
