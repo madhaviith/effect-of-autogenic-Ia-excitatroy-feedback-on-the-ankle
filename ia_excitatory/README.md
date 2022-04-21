@@ -23,7 +23,7 @@ Each of these folders contain
             
             - synthesizes the afferent activity and send them to Afferent neurons of connectome.
       
-Both **main.py** and **neuroid_osim_glue.py** should be run parallely in-order to achieve neuro-musculoskeletal co-simulation (Refer run_instructions.pdf to run the model). Although the code contents of **sim_o** and **sim_c** are same, they differ byt the setup and the output data. While the former folder runs open-loop simulations, the later folder does close-loop with proprioception 'on'. 
+Both **main.py** and **neuroid_osim_glue.py** should be run in parallel to achieve neuro-musculoskeletal co-simulation (Refer run_instructions.pdf to run the model). Although the code contents of **sim_o** and **sim_c** folders are same, they differ by the setup and the output data. While the former folder runs open-loop simulations, the later folder does close-loop with proprioception 'on'. 
 
 2. **templates** folder contains .hoc files and .mod files required for the neuronal models. 
 
